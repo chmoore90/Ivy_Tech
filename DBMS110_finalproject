@@ -145,25 +145,25 @@ values ('Maintenance', 'Jonathan', 'Byers', 14, '812-696-0242');
 
 --sales agents
 insert into sales_agent(first_name, last_name, location_ID, phone)
-values ('Gandalf', 'White', 11, '100-250-6423')
+values ('Gandalf', 'White', 11, '100-250-6423');
 insert into sales_agent(first_name, last_name, location_ID, phone)
-values ('Radagast', 'Brown', 12, '650-644-6543')
+values ('Radagast', 'Brown', 12, '650-644-6543');
 
 --properties
 insert into property(parcel_number, location_ID, market_value, number_of_rooms, square_feet, arch_style)
-values (142, 8, 180250.00, 5, 2567, 'hobbit')
+values (142, 8, 180250.00, 5, 2567, 'hobbit');
 insert into property(parcel_number, location_ID, market_value, number_of_rooms, square_feet, arch_style)
-values (285, 9, 199300.00, 4, 2056, 'victorian')
+values (285, 9, 199300.00, 4, 2056, 'victorian');
 insert into property(parcel_number, location_ID, market_value, number_of_rooms, square_feet, arch_style)
-values (626, 10, 200400.00, 7, 3189, 'tudor')
+values (626, 10, 200400.00, 7, 3189, 'tudor');
 
 --sales agreements
-insert into sales_agreement(buyer_ID, sales_agent_ID, property_ID, purchase_date, purchase_amount) values(1, 1, 1, 2/9/2022,165000.00)
-insert into sales_agreement(buyer_ID, sales_agent_ID, property_ID,purchase_date, purchase_amount) values(2, 1, 2, 12/16/2021, 190000.00)
-insert into sales_agreement(buyer_ID, sales_agent_ID, property_ID,purchase_date, purchase_amount) values(3, 2, 3, 4/21/2022, 185500.00)
+insert into sales_agreement(buyer_ID, sales_agent_ID, property_ID, purchase_date, purchase_amount) values(1, 1, 1, 2/9/2022,165000.00);
+insert into sales_agreement(buyer_ID, sales_agent_ID, property_ID,purchase_date, purchase_amount) values(2, 1, 2, 12/16/2021, 190000.00);
+insert into sales_agreement(buyer_ID, sales_agent_ID, property_ID,purchase_date, purchase_amount) values(3, 2, 3, 4/21/2022, 185500.00);
 
 --contractor agreements
-insert into contractor_agreement(contractor_ID, property_ID, agreement_description) values (2, 2,'install furnace')
-insert into contractor_agreement(contractor_ID, property_ID, agreement_description) values (4, 3, 'remodel bathroom')
-insert into contractor_agreement(contractor_ID, property_ID, agreement_description) values (3, 1, 'stage house for showing')
-insert into contractor_agreement(contractor_ID, property_ID, agreement_description) values (1, 1, 'plant trees for privacy screen')
+insert into contractor_agreement(contractor_ID, property_ID, agreement_description) values (2, 2,'install furnace');
+insert into contractor_agreement(contractor_ID, property_ID, agreement_description) values (4, 3, 'remodel bathroom');
+insert into contractor_agreement(contractor_ID, property_ID, agreement_description) values (3, 1, 'stage house for showing');
+insert into contractor_agreement(contractor_ID, property_ID, agreement_description) values (1, 1, 'plant trees for privacy screen');
