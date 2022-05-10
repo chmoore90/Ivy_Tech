@@ -1,0 +1,123 @@
+[
+    {
+        "Movie Name": "The Lord of the Rings: The Return of the King",
+        "Movie Genre": "Fantasy",
+        "Actors": [
+            "Elijah Wood",
+            "Ian McKellen",
+            "Liv Tyler",
+            "Viggo Mortensen",
+            "Sean Astin",
+            "Cate Blanchett",
+            "John Rhys-Davies",
+            "Bernard Hill",
+            "Billy Boyd",
+            "Dominic Monaghan",
+            "Orlando Bloom",
+            "Hugo Weaving",
+            "Miranda Otto",
+            "David Wenham",
+            "Karl Urban",
+            "John Noble",
+            "Andy Serkis",
+            "Ian Holm",
+            "Sean Bean"
+        ],
+        "Production Company": [
+            "New Line Cinema",
+            "Wingnut Films"
+        ],
+        "Release Date": 2003,
+        "Quantity": 10,
+        "Cost": 5,
+        "In our opinion": "The third entry to the greatest movie trilogy in cinema. A brilliant tribute to J.R.R. Tolkien, one of history's most renowned authors."
+    },
+    {
+        "Movie Name": "The Lord of the Rings: The Two Towers",
+        "Movie Genre": "Fantasy",
+        "Actors": [
+            "Elijah Wood",
+            "Ian McKellen",
+            "Liv Tyler",
+            "Viggo Mortensen",
+            "Sean Astin",
+            "Cate Blanchett",
+            "John Rhys-Davies",
+            "Bernard Hill",
+            "Christopher Lee",
+            "Billy Boyd",
+            "Dominic Monaghan",
+            "Orlando Bloom",
+            "Hugo Weaving",
+            "Miranda Otto",
+            "David Wenham",
+            "Brad Dourif",
+            "Karl Urban",
+            "Andy Serkis"
+        ],
+        "Production Company": [
+            "New Line Cinema",
+            "Wingnut Films"
+        ],
+        "Release Date": 2002,
+        "Quantity": 10,
+        "Cost": 5,
+        "In our opinion": "The second entry to the greatest movie trilogy in cinema. A brilliant tribute to J.R.R. Tolkien, one of history's most renowned authors."
+    },
+    {
+        "Movie Name": "The Lord of the Rings: The Fellowship of the Ring",
+        "Movie Genre": "Fantasy",
+        "Actors": [
+            "Elijah Wood",
+            "Ian McKellen",
+            "Liv Tyler",
+            "Viggo Mortensen",
+            "Sean Astin",
+            "Cate Blanchett",
+            "John Rhys-Davies",
+            "Billy Boyd",
+            "Dominic Monaghan",
+            "Orlando Bloom",
+            "Christopher Lee",
+            "Hugo Weaving",
+            "Sean Bean",
+            "Ian Holm",
+            "Andy Serkis"
+        ],
+        "Production Company": [
+            "New Line Cinema",
+            "Wingnut Films"
+        ],
+        "Release Date": 2001,
+        "Quantity": 10,
+        "Cost": 5,
+        "In our opinion": "The first entry to the greatest movie trilogy in cinema. A brilliant tribute to J.R.R. Tolkien, one of history's most renowned authors."
+    },
+    {
+        "Movie Name": "The Hobbit: An Unexpected Journey",
+        "Movie Genre": "Fantasy",
+        "Actors": [
+            "Ian McKellen",
+            "Martin Freeman",
+            "Richard Armitage",
+            "James Nesbitt",
+            "Ken Stott",
+            "Cate Blanchett",
+            "Ian Holm",
+            "Christopher Lee",
+            "Hugo Weaving",
+            "Elijah Wood",
+            "Andy Serkis"
+        ],
+        "Production Company": [
+            "Warner Bros. Pictures",
+            "New Line Cinema",
+            "Metro-Goldwyn-Mayer",
+            "WingNut Films"
+        ],
+        "Release Date": 2012,
+        "Quantity": 0,
+        "Cost": 0,
+        "In our opinion": "Not just a mediocore movie (at best), but a disgraceful adaptation of Tolkein's masterful work. Honestly don't bother. We didn't."
+    }
+]

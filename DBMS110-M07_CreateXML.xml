@@ -1,0 +1,123 @@
+<inventory>
+    <movie>
+        <movie_name>The Lord of the Rings: The Return of the King</movie_name>
+        <movie_genre>Fantasy</movie_genre>
+        <actors>
+            <actor>Elijah Wood</actor>
+            <actor>Ian McKellen</actor>
+            <actor>Liv Tyler</actor>
+            <actor>Viggo Mortensen</actor>
+            <actor>Sean Astin</actor>
+            <actor>Cate Blanchett</actor>
+            <actor>John Rhys-Davies</actor>
+            <actor>Bernard Hill</actor>
+            <actor>Billy Boyd</actor>
+            <actor>Dominic Monaghan</actor>
+            <actor>Orlando Bloom</actor>
+            <actor>Hugo Weaving</actor>
+            <actor>Miranda Otto</actor>
+            <actor>David Wenham</actor>
+            <actor>Karl Urban</actor>
+            <actor>John Noble</actor>
+            <actor>Andy Serkis</actor>
+            <actor>Ian Holm</actor>
+            <actor>Sean Bean</actor>
+        </actors>
+        <production_companies>
+            <production_company>New Line Cinema</production_company>
+            <production_company>WingNut Films</production_company>
+        </production_companies>
+        <release_date>2003</release_date>
+        <quantity>10</quantity>
+        <cost>5.00</cost>
+        <our_opinion>The third entry to the greatest movie trilogy in cinema. A brilliant tribute to J.R.R. Tolkien, one of history's most renowned authors.</our_opinion>
+    </movie>
+    <movie>
+        <movie_name>The Lord of the Rings: The Two Towers</movie_name>
+        <movie_genre>Fantasy</movie_genre>
+        <actors>
+            <actor>Elijah Wood<actor>
+            <actor>Ian McKellen</actor>
+            <actor>Liv Tyler</actor>
+            <actor>Viggo Mortensen</actor>
+            <actor>Sean Astin</actor>
+            <actor>Cate Blanchett</actor>
+            <actor>John Rhys-Davies</actor>
+            <actor>Bernard Hill</actor>
+            <actor>Christopher Lee</actor>
+            <actor>Billy Boyd</actor>
+            <actor>Dominic Monaghan</actor>
+            <actor>Orlando Bloom</actor>
+            <actor>Hugo Weaving</actor>
+            <actor>Miranda Otto</actor>
+            <actor>David Wenham</actor>
+            <actor>Brad Dourif</actor>
+            <actor>Karl Urban</actor>
+            <actor>Andy Serkis</actor>
+        </actors>
+        <production_companies>
+            <production_company>New Line Cinema</production_company>
+            <production_company> WingNut Films</production_company>
+        </production_companies>
+        <release_date>2002</release_date>
+        <quantity>10</quantity>
+        <cost>5.00</cost>
+        <our_opinion>The second entry to the greatest movie trilogy in cinema. A brilliant tribute to J.R.R. Tolkien, one of history's most renowned authors.</our_opinion>
+    </movie>
+    <movie>
+        <movie_name>The Lord of the Rings: The Fellowship of the Ring</movie_name>
+        <movie_genre>Fantasy</movie_genre>
+        <actors>
+            <actor>Elijah Wood</actor>
+            <actor>Ian McKellen</actor>
+            <actor>Liv Tyler</actor>
+            <actor>Viggo Mortensen</actor>
+            <actor>Sean Astin</actor>
+            <actor>Cate Blanchett</actor>
+            <actor>John Rhys-Davies</actor>
+            <actor>Billy Boyd</actor>
+            <actor>Dominic Monaghan</actor>
+            <actor>Orlando Bloom</actor>
+            <actor>Christopher Lee</actor>
+            <actor>Hugo Weaving</actor>
+            <actor>Sean Bean</actor>
+            <actor>Ian Holm</actor>
+            <actor>Andy Serkis</actor>
+        </actors>
+        <production_companies>
+            <production_company>New Line Cinema</production_company>
+            <production_company>WingNut Films</production_company>
+        </production_companies>
+        <release_date>2001</release_date>
+        <quantity>10</quantity>
+        <cost>5.00</cost>
+        <our_opinion>The first entry to the greatest movie trilogy in cinema. A brilliant tribute to J.R.R. Tolkien, one of history's most renowned authors.</our_opinion>
+    </movie>
+    <movie>
+        <movie_name>The Hobbit: An Unexpected Journey</movie_name>
+        <movie_genre>Fantasy</movie_genre>
+        <actors>
+            <actor>Ian McKellen</actor>
+            <actor>Martin Freeman</actor>
+            <actor>Richard Armitage</actor>
+            <actor>James Nesbitt</actor>
+            <actor>Ken Stott</actor>
+            <actor>Cate Blanchett</actor>
+            <actor>Ian Holm</actor>
+            <actor>Christopher Lee</actor>
+            <actor>Hugo Weaving</actor>
+            <actor>Elijah Wood</actor>
+            <actor>Andy Serkis</actor>
+        </actors>
+        <production_companies>
+            <production_company>Warner Bros. Pictures</production_company>
+            <production_company> New Line Cinema</production_company>
+            <production_company>Metro-Goldwyn-Mayer</production_company>
+            <production_company>WingNut Films</production_company>
+        </production_companies>
+        <release_date>2012</release_date>
+        <quantity>0</quantity>
+        <cost>0.00</cost>
+        <our_opinion>Not just a mediocore movie (at best), but a disgraceful adaptation of Tolkein's masterful work. Honestly don't bother. We didn't.</our_opinion>
+    </movie>
+</inventory>
