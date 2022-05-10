@@ -158,9 +158,12 @@ insert into property(parcel_number, location_ID, market_value, number_of_rooms, 
 values (626, 10, 200400.00, 7, 3189, 'tudor');
 
 --sales agreements
-insert into sales_agreement(buyer_ID, sales_agent_ID, property_ID, purchase_date, purchase_amount) values(1, 1, 1, 2/9/2022,165000.00);
-insert into sales_agreement(buyer_ID, sales_agent_ID, property_ID,purchase_date, purchase_amount) values(2, 1, 2, 12/16/2021, 190000.00);
-insert into sales_agreement(buyer_ID, sales_agent_ID, property_ID,purchase_date, purchase_amount) values(3, 2, 3, 4/21/2022, 185500.00);
+insert into sales_agreement(buyer_ID, sales_agent_ID, property_ID, purchase_date, purchase_amount)
+values(1, 1, 1, to_date('09-feb-22', 'dd-mon-yy'),165000.00);
+insert into sales_agreement(buyer_ID, sales_agent_ID, property_ID,purchase_date, purchase_amount)
+values(2, 1, 2, to_date('12/16/2021', 'mm/dd/yyyy'), 190000.00);
+insert into sales_agreement(buyer_ID, sales_agent_ID, property_ID,purchase_date, purchase_amount)
+values(3, 2, 3, to_date('04/21/2022', 'mm/dd/yyyy'), 185500.00);
 
 --contractor agreements
 insert into contractor_agreement(contractor_ID, property_ID, agreement_description) values (2, 2,'install furnace');
