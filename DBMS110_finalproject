@@ -123,7 +123,7 @@ values ('Mike', 'Bays', 7, '812-147-2589', 'Sandwich Artist', 55000, 743);
 
 --contractor
 insert into contractor(title, first_name, last_name, location_ID, phone)
-values ('Repair Man', 'Samwise', 'Gamgee', 1, '250-954-7853');
+values ('Landscaper', 'Samwise', 'Gamgee', 1, '250-954-7853');
 insert into contractor(title, first_name, last_name, location_ID, phone)
 values ('General Construction', 'Peregrin', 'Took', 2, '250-654-8234');
 insert into contractor(title, first_name, last_name, location_ID, phone)
@@ -156,3 +156,14 @@ insert into property(parcel_number, location_ID, market_value, number_of_rooms, 
 values (285, 9, 199300.00, 4, 2056, 'victorian')
 insert into property(parcel_number, location_ID, market_value, number_of_rooms, square_feet, arch_style)
 values (626, 10, 200400.00, 7, 3189, 'tudor')
+
+--sales agreements
+insert into sales_agreement(buyer_ID, sales_agent_ID, property_ID, purchase_date, purchase_amount) values(1, 1, 1, 2/9/2022,165000.00)
+insert into sales_agreement(buyer_ID, sales_agent_ID, property_ID,purchase_date, purchase_amount) values(2, 1, 2, 12/16/2021, 190000.00)
+insert into sales_agreement(buyer_ID, sales_agent_ID, property_ID,purchase_date, purchase_amount) values(3, 2, 3, 4/21/2022, 185500.00)
+
+--contractor agreements
+insert into contractor_agreement(contractor_ID, property_ID, agreement_description) values (2, 2,'install furnace')
+insert into contractor_agreement(contractor_ID, property_ID, agreement_description) values (4, 3, 'remodel bathroom')
+insert into contractor_agreement(contractor_ID, property_ID, agreement_description) values (3, 1, 'stage house for showing')
+insert into contractor_agreement(contractor_ID, property_ID, agreement_description) values (1, 1, 'plant trees for privacy screen')
