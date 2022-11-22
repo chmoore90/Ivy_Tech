@@ -1,5 +1,5 @@
 '''
-Program takes input of single digits and returns a sum
+Program adds digits of a number and returns sum
 Author: Chloe Moore
 Class: SDEV 140-26J
 Module: 3
@@ -9,11 +9,9 @@ Ex: 1
 n = 0
 sum = 0
 
-while True:
-    n = input("Enter a single digit integer: ")
-    if n.isnumeric():
-        sum += int(n)
-    else:
-        break
+n = input("Enter a number with multiple digits: ")
 
-print("Sum of these numbers is " + str(sum))
+for i in n:
+    sum += int(i)
+
+print(sum)
