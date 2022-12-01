@@ -3,8 +3,8 @@ for i in range(2, 5):
 abs
 
 
-def sample(x=1, y):
-    print(x, y)
+def sample(x=1):
+    print(x)
 
 
 sample(1)
