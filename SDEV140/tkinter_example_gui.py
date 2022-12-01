@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk
 
 root = Tk()
-frm = ttk.Frame(root, padding=50)
+frm = ttk.Frame(root, padding=100)
 frm.grid()
 
 ttk.Label(frm, text="Hello class!").grid(column=0, row=0)
