@@ -7,7 +7,6 @@ Ex: 1
 '''
 
 import tkinter
-from tkinter import *
 from tkinter import ttk
 
 
@@ -26,7 +25,7 @@ def get_f():
 
 
 # set up frame
-root = Tk()
+root = tkinter.Tk()
 frame = ttk.Frame(root, padding=50)
 frame.grid()
 
@@ -35,12 +34,12 @@ ttk.Label(frame, text="Enter a temperature: ").grid(column=0, row=0)
 
 ent_var = tkinter.StringVar(frame)
 ent = ttk.Entry(frame, textvariable=ent_var, width=5)
-ent.grid(column=1, row=0, sticky=W, pady=10)
+ent.grid(column=1, row=0, sticky=tkinter.W, pady=10)
 ent.focus()
 
 # buttons
-ttk.Button(frame, text="Convert from Fahrenheit to Celcius", command=get_c).grid(column=1, row=1,sticky=W, pady=10)
-ttk.Button(frame, text="Convert from Celcius to Fahrenheit", command=get_f).grid(column=1, row=2, sticky=W, pady=10)
+ttk.Button(frame, text="Convert from Fahrenheit to Celcius", command=get_c).grid(column=1, row=1,sticky=tkinter.W, pady=10)
+ttk.Button(frame, text="Convert from Celcius to Fahrenheit", command=get_f).grid(column=1, row=2, sticky=tkinter.W, pady=10)
 
 
 # run program
