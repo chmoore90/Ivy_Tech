@@ -68,15 +68,16 @@ conf_sun = ttk.Frame(main)
 conf_milk = ttk.Frame(main)
 thanks = ttk.Frame(main)
 
+frames = [home, order_sun, order_milk, thanks]
 
 #-------------------------------------------------------------------------------PAGES WIDGETS--------------------------------------------------
 #home page
 welcome_banner = "welcome message goes here"
 welcome_msg = "general welcoming things"
 
-welcome__banner_label = ttk.Label(home, text=welcome_banner, style="TLabel", font="Arial 24")
+welcome__banner_label = ttk.Label(thanks, text=welcome_banner, style="TLabel", font="Arial 24")
 
-welcome_msg_label = ttk.Label(home, text=welcome_msg)
+welcome_msg_label = ttk.Label(thanks, text=welcome_msg)
 welcome_msg_label.config(style="TLabel", anchor="center", padding=30)
 
 
@@ -128,4 +129,8 @@ welcome_msg_label.grid(row=1, column=1, sticky="ew")
 
 
 #-------------------------------------------------------------------------------RUN APPLICATION--------------------------------------------------
+
+
+
+
 scoops.mainloop()

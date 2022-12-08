@@ -2,6 +2,13 @@
 
 import tkinter as tk
 
+def on_submit():
+    name = name_entry.get()
+    num = num_input.get()
+    print(name, str(num))
+    return None
+
+
 # building the window
 root = tk.Tk()
 root.title("My first tkinter form")
@@ -12,11 +19,11 @@ root.geometry("700x500+300+300")
 # set sizable settings
 root.resizable(False, False)
 
-# building widgets
+# BUILDING WIDGETS-------------------------------------------------------------------------------------------------
 # title widget
 title = tk.Label(root, text="Please take the survey", font= "Arial 16 bold", bg="dark green", fg="#FFFFFF")
 
-# building name lable and text entry
+# building name label and text entry
 name_label = tk.Label(root, text="What is your name?")
 name_entry = tk.Entry(root)
 
@@ -35,7 +42,18 @@ color_choices = ("Any,", "Green", "Green-Yellow", "Yellow", "Brown-Spotted", "Bl
 for choice in color_choices:
     color_input.insert(tk.END, choice)
 
-# layout application
+# building buttons
+submit_button = tk.Button(root, text="Submit Survey", command=on_submit)
+exit_button = tk.Button(root, text="Exit", command=root.destroy)
+
+# output information
+output_title = tk.Label(root, text="Output text below")
+output_line = tk.Label(root, text="xxxxxxxx")
+
+
+
+
+# LAYOUT APPLICATION-------------------------------------------------------------------------------------------------
 # layout for row0 (putting the title widget in row0
 title.grid(row=0, columnspan=2)
 
@@ -50,10 +68,19 @@ eat_check.grid(row=2, columnspan=2, sticky="we")
 num_label.grid(row=3, column=0)
 num_input.grid(row=3, column=1)
 
-# layout row 4 (listbox)
+# layout row4 (listbox)
 color_label.grid(row=4, column=0)
 color_input.grid(row=4, column=1)
 
+# layout row5 (buttons)
+submit_button.grid(row=5, column=0)
+exit_button.grid(row=5, column=1)
+
+# layout row6 (output title)
+output_title.grid(row=6, columnspan=2)
+
+# layout row7 (output message)
+output_line.grid(row=7, columnspan=2)
 
 
 root.mainloop()
