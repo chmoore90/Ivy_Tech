@@ -9,15 +9,26 @@ import tkinter as tk
 from tkinter import ttk
 
 
-def home_selection():
+def lets_go():
     """Determines which frame to raise and calls that function"""
     dessert = order_info["Dessert"].get()
     if dessert == "Sundae":
-        create_sundae_page()
+        init_sundae()
         sundae.tkraise()
     if dessert == "Milkshake":
-        create_milkshake_page()
+        init_milkshake()
         milkshake.tkraise()
+
+
+def toggle(check, flavor_menu, topping_menu):
+
+    checked = check.get()
+    if not checked:
+        flavor_menu["state"] = "disabled"
+        topping_menu["state"] = "disabled"
+    if checked:
+        flavor_menu["state"] = "normal"
+        topping_menu["state"] = "normal"
 
 
 def submit_order():
@@ -30,77 +41,80 @@ def submit_order():
     thanks.tkraise()
 
 
-def toggle(check: tk.BooleanVar, menu1: ttk.OptionMenu, menu2):
-    checked = check.get()
-    print(checked)
-    if not checked:
-        menu1["state"] = "disabled"
-        menu2["state"] = "disabled"
-    if checked:
-        menu1["state"] = "normal"
-        menu2["state"] = "normal"
-
-
-def create_sundae_page():
+def init_sundae():
     """Logic for creating, populating sundae order page"""
     banner = f"Let's make {order_info['Name'].get()}'s sundae!"
     msg = "Do things to get stuff."
 
     banner_label = ttk.Label(sundae, style="banner.TLabel", text=banner)
     msg_label = ttk.Label(sundae, text=msg)
-    flavor_label1 = ttk.Label(sundae, text="Choose your scoops...")
-    flavor_label2 = ttk.Label(sundae, text="...and their toppings.")
+    flavors_label = ttk.Label(sundae, text="Choose your scoops...")
+    toppings_label = ttk.Label(sundae, text="...and their toppings.")
     extras_label = ttk.Label(sundae, text="Add some extras:")
 
-    flavor_menu1 = ttk.OptionMenu(
+    flavor1_menu = ttk.OptionMenu(
         sundae, order_info["Flavor 1"], "Choose one:", *flavors
     )
-    flavor_menu1["state"] = "normal"
-    flavor_menu1["menu"].config(
+    flavor1_menu["menu"].config(
         background="white",
         font=("Helvetica", 16),
     )
-    flavor_menu2 = ttk.OptionMenu(
+    flavor2_menu = ttk.OptionMenu(
         sundae, order_info["Flavor 2"], "Choose one:", *flavors
     )
-    flavor_menu2["state"] = "disabled"
-    flavor_menu2["menu"].config(
+    flavor2_menu["state"] = "disabled"
+    flavor2_menu["menu"].config(
         background="white",
         font=("Helvetica", 16),
     )
-    flavor_menu3 = ttk.OptionMenu(
+    flavor3_menu = ttk.OptionMenu(
         sundae,
         order_info["Flavor 3"],
         "Choose one:",
         *flavors,
     )
-    flavor_menu3["state"] = "disabled"
-    flavor_menu3["menu"].config(
+    flavor3_menu["state"] = "disabled"
+    flavor3_menu["menu"].config(
         background="white",
         font=("Helvetica", 16),
     )
-    toppings_menu1 = ttk.OptionMenu(
+    toppings1_menu = ttk.OptionMenu(
         sundae, order_info["Topping 1"], "Choose one:", *toppings
     )
-    toppings_menu1["menu"].config(
+    toppings1_menu["menu"].config(
         background="white",
         font=("Helvetica", 16),
     )
-    toppings_menu2 = ttk.OptionMenu(
+    toppings2_menu = ttk.OptionMenu(
         sundae, order_info["Topping 2"], "Choose one:", *toppings
     )
-    toppings_menu2["state"] = "disabled"
-    toppings_menu2["menu"].config(
+    toppings2_menu["state"] = "disabled"
+    toppings2_menu["menu"].config(
         background="white",
         font=("Helvetica", 16),
     )
-    toppings_menu3 = ttk.OptionMenu(
+    toppings3_menu = ttk.OptionMenu(
         sundae, order_info["Topping 3"], "Choose one:", *toppings
     )
-    toppings_menu3["state"] = "disabled"
-    toppings_menu3["menu"].config(
+    toppings3_menu["state"] = "disabled"
+    toppings3_menu["menu"].config(
         background="white",
         font=("Helvetica", 16),
+    )
+
+    flavor2_var = tk.BooleanVar()
+    flavor2_check = ttk.Checkbutton(
+        sundae,
+        style="mini.TCheckbutton",
+        variable=flavor2_var,
+        command=lambda: toggle(flavor2_var, flavor2_menu, toppings2_menu),
+    )
+    flavor3_var = tk.BooleanVar()
+    flavor3_check = ttk.Checkbutton(
+        sundae,
+        style="mini.TCheckbutton",
+        variable=flavor3_var,
+        command=lambda: toggle(flavor3_var, flavor3_menu, toppings3_menu),
     )
 
     nuts_check = ttk.Checkbutton(sundae, text="Nuts", variable=order_info["Nuts"])
@@ -119,42 +133,37 @@ def create_sundae_page():
         width=15,
     )
 
-    f2_var = tk.BooleanVar()
-    flavor_check2 = ttk.Checkbutton(
-        sundae,
-        style="mini.TCheckbutton",
-        variable=f2_var,
-        command=lambda: toggle(f2_var, flavor_menu2, toppings_menu2),
-    )
-
     # LAYOUTS
-    flavor_check2.grid(
-        row=4,
-        column=0,
-    )
 
-    banner_label.grid(row=0, column=0, columnspan=3, sticky="nsew")
-    msg_label.grid(row=1, column=0, columnspan=3, sticky="nsew", pady=[0, 30])
-    flavor_label1.grid(row=2, column=0, sticky="e")
-    flavor_label2.grid(row=2, column=2, sticky="w")
-    flavor_menu1.grid(row=3, column=0, sticky="e")
-    ttk.Label(sundae, text="with").grid(row=3, column=1)
-    toppings_menu1.grid(row=3, column=2, sticky="w")
-    flavor_menu2.grid(row=4, column=0, sticky="e")
-    ttk.Label(sundae, text="with").grid(row=4, column=1)
-    toppings_menu2.grid(row=4, column=2, sticky="w")
-    flavor_menu3.grid(row=5, column=0, sticky="e")
-    ttk.Label(sundae, text="with").grid(row=5, column=1)
-    toppings_menu3.grid(row=5, column=2, sticky="w")
-    order_button.grid(row=8, column=0, columnspan=3, pady=[50, 0])
+    banner_label.grid(row=0, column=0, columnspan=4, sticky="nsew")
+    msg_label.grid(row=1, column=0, columnspan=4, sticky="nsew", pady=[0, 30])
 
-    extras_label.grid(row=6, column=0, columnspan=3, sticky="nsew", pady=[30, 0])
-    nuts_check.grid(row=7, column=0, sticky="w", padx=[0, 100])
-    whip_check.grid(row=7, column=0, columnspan=3)
-    cherry_check.grid(row=7, column=2, sticky="e", padx=[100, 0])
+    flavors_label.grid(row=2, column=1, sticky="w")
+    toppings_label.grid(row=2, column=3, sticky="e")
+
+    flavor1_menu.grid(row=3, column=1, sticky="e")
+    ttk.Label(sundae, text="with").grid(row=3, column=2)
+    toppings1_menu.grid(row=3, column=3)
+
+    flavor2_check.grid(row=4, column=0, sticky="e")
+    flavor2_menu.grid(row=4, column=1, sticky="e")
+    ttk.Label(sundae, text="with").grid(row=4, column=2)
+    toppings2_menu.grid(row=4, column=3)
+
+    flavor3_check.grid(row=5, column=0, sticky="e")
+    flavor3_menu.grid(row=5, column=1, sticky="e")
+    ttk.Label(sundae, text="with").grid(row=5, column=2)
+    toppings3_menu.grid(row=5, column=3)
+
+    extras_label.grid(row=6, column=1, columnspan=2, sticky="w", pady=[20, 0])
+    nuts_check.grid(row=7, column=1, columnspan=2, sticky="w")
+    whip_check.grid(row=7, column=1, columnspan=2, sticky="e")
+    cherry_check.grid(row=7, column=3, sticky="w")
+
+    order_button.grid(row=8, column=0, columnspan=4, pady=[50, 0])
 
 
-def create_milkshake_page():
+def init_milkshake():
     """Logic for creating, populating milkshake order page"""
     banner = f"Let's make {order_info['Name'].get()}'s milkshake!"
     msg = "Do things to get stuff."
@@ -162,6 +171,13 @@ def create_milkshake_page():
     banner_label = ttk.Label(milkshake, style="banner.TLabel", text=banner)
     msg_label = ttk.Label(milkshake, text=msg)
 
+    banner_label.grid(row=0, column=0)
+    msg_label.grid(row=0, column=0)
+
+    pass
+
+
+def init_thanks():
     pass
 
 
@@ -258,13 +274,12 @@ style.configure(
 # sets defaults for checkbutton objects
 style.configure(
     "TCheckbutton",
-    anchor="center",
-    background="white",
+    background="#fff391",
+    foreground="#551802",
     font=("Helvetica", 16),
-    justify="center",
     width=15,
 )
-style.configure("mini.TCheckbutton", background="#fff391", width=0)
+style.configure("mini.TCheckbutton", width=0)
 
 flavors = ["Chocolate", "Vanilla", "Strawberry"]
 toppings = [
@@ -323,9 +338,7 @@ home_menu["menu"].config(
 )
 
 # build button to go next page
-go_button = ttk.Button(
-    home, text="Let's Go!", style="button.TLabel", command=home_selection
-)
+go_button = ttk.Button(home, text="Let's Go!", style="button.TLabel", command=lets_go)
 
 
 # LAYOUTS
