@@ -1,10 +1,5 @@
-for i in range(2, 5):
-    print(i)
-abs
+import tkinter
+from tkinter import ttk
 
-
-def sample(x=1):
-    print(x)
-
-
-sample(1)
+a = tkinter.StringVar()
+print(a.winfo_class())
