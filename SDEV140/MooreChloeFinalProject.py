@@ -11,10 +11,10 @@ from tkinter import ttk
 
 # GENERAL FUNCTIONS
 def new_order():
-    """Returns dictionary representing a new order, keys for every order item and values to be updated by the relevant input widgets."""
+    """Returns dictionary with blank string variable values. keys are order info fields, values are updated by input widgets."""
 
     return {
-        "Name": tk.StringVar(),
+        "Name": tk.StringVar(value=f"Table {table_number}"),  # Sets default value for name field to the table number
         "Dessert": tk.StringVar(),
         "Size": tk.StringVar(),
         "Flavor 1": tk.StringVar(),
@@ -30,7 +30,7 @@ def new_order():
 
 
 def lets_go():
-    """Checks value of 'Dessert' key, then initates corresponding page."""
+    #Checks value of 'Dessert' key and initates corresponding page. Doesn't run if no option is selected"""
 
     dessert = order_info["Dessert"].get()
     if dessert == "Sundae":
@@ -53,15 +53,19 @@ def toggle(check, flavor_menu, topping_menu):
 
 
 def submit_order():
-    """Prints dictionary of order information, then initiates thank you page."""
+    """Prints dictionary of order information, then initiates thank you page. Only runs when user has made at least 1 flavor selection"""
 
-    for k, v in order_info.items():
-        v = v.get()
-        if v == "Choose one:":
-            v = None
-        print(f"{k}: {v}")
+    if order_info["Flavor 1"].get() in flavors:  # Checks if flavor 1 is a valid flavor option
+        for k, v in order_info.items():
+            v = v.get()
+            if v == "Choose one:":  # Sets value to None if user did not make a selection
+                v = None
+            print(f"{k}: {v}")
 
-    init_thanks(thanks)
+        init_thanks(thanks)
+
+    else:
+        return  # Returns None if flavor 1 is not valid (to user, nothing happens)
 
 
 def configure_styles(scoops):
@@ -98,20 +102,17 @@ def configure_styles(scoops):
         foreground="white",
         width=10)
 
-    # Default settings for exit button (must be called directly)
-    style.configure(
-        "exit.TLabel",
-        font=10
-    )
+    # Default font for exit button (must be called directly)
+    style.configure("exit.TLabel", font=10)
 
-    # Default for dynamic settings of buttons (must be called directly)
+    # Default for dynamic settings for buttons (must be called directly)
     style.map(
         "button.TLabel",
         background=[("pressed", "!disabled", "brown"), ("active", "brown")],
         foreground=[("pressed", "white"), ("active", "white")],
         relief=[("pressed", "sunken"), ("!pressed", "raised")])
 
-    # Default for dynamic settings of the exit button (must be called directly)
+    # Default for dynamic settings for exit button (must be called directly)
     style.map(
         "exit.TLabel",
         background=[("pressed", "!disabled", "brown"), ("active", "brown")],
@@ -133,7 +134,7 @@ def configure_styles(scoops):
         font=("Helvetica", 16),
         width=15)
 
-    # Overrides width of checkbutton, sets width to 0
+    # Overrides width of checkbutton, sets to 0
     style.configure("mini.TCheckbutton", width=0)
 
     # Default settings for radiobuttons
@@ -153,21 +154,21 @@ def init_home(page):
 
     # Text variables
     banner = "Welcome to Ike's Ice Cream Parlor!"  # Text for home page banner
-    msg = "You can order sundaes and milkshakes from right here at your table! To begin, enter your name in the box below, then choose either Sundae or Milkshake."  # Text for home page paragraph
-    name_msg = "This dessert is for:"  # Text for name entry prompt
+    msg = "You can order sundaes and milkshakes from right here at your table! Simply enter your name in the box below, then select the dessert you'd like to order from the dropdown menu. Click \"Let's Go\" to continue."  # Text for home page paragraph
+    name_msg = "My name is:"  # Text for name entry prompt
     select_msg = "I want to order a:"  #  Text for dessert selection menu
 
     # Labels
-    welcome_banner_label = ttk.Label(page, style="banner.TLabel", text=banner)  # Label object that displays home page banner text
-    welcome_msg_label = ttk.Label(page, text=msg)  # Label object that displays home page paragraph text
-    name_label = ttk.Label(page, text=name_msg)  # Label object that displays text to prompt user to use entry box
-    select_label = ttk.Label(page, text=select_msg)  # Label object that displays text to prompt user to use selection menu
+    welcome_banner_label = ttk.Label(page, style="banner.TLabel", text=banner)  # Banner text
+    welcome_msg_label = ttk.Label(page, text=msg)  # Paragraph text
+    name_label = ttk.Label(page, text=name_msg)  # Prompt for user to use entry box
+    select_label = ttk.Label(page, text=select_msg)  # Prompt for user to use selection menu
 
     # Entry box for user to enter their name
     name_entry = ttk.Entry(page, font=("Helvetica", 16), textvariable=order_info["Name"], width=20)
 
     # Selection menu
-    options = ["Sundae", "Milkshake"]  # List of options
+    options = ["Sundae", "Milkshake"]  # List of dessert options
     home_menu = ttk.OptionMenu(page, order_info["Dessert"], "Choose one:", *options)  # Creates base menu
     home_menu["menu"].config(background="white", font=("Helvetica", 16))  # Configures settings for dropdown part of the menu
 
@@ -205,34 +206,35 @@ def init_sundae(page):
 
     # Text variables
     banner = f"Let's make {order_info['Name'].get()}'s sundae!"
-    msg = "Select up to 3 scoops of ice cream. You can pick one flavor and one topping per scoop. Then add on any number of extras. Hit 'Submit Order' when you're ready to order!"
+    msg = "You can order up to 3 scoops. Each scoop is one flavor and can have one topping. Click the checkboxes to add a scoop. Don't forget to add on any extras you want! Click \"Submit Order\" when you're done."
 
     # Labels
     banner_label = ttk.Label(page, style="banner.TLabel", text=banner)
     msg_label = ttk.Label(page, text=msg)
     flavors_label = ttk.Label(page, text="Choose your scoops...")
     toppings_label = ttk.Label(page, text="...and their toppings.")
-    extras_label = ttk.Label(page, text="Add some extras:")
+    extras_label = ttk.Label(page, text="Add your extras:")
 
     # Flavor and topping dropdown optionmenus
     flavor1_menu = ttk.OptionMenu(page, order_info["Flavor 1"], "Choose one:", *flavors)
-    flavor1_menu["menu"].config(background="white", font=("Helvetica", 16)) # settings for dropdown part of optionmenu
+    flavor1_menu["menu"].config(background="white", font=("Helvetica", 16))
     flavor2_menu = ttk.OptionMenu(page, order_info["Flavor 2"], "Choose one:", *flavors)
     flavor2_menu["state"] = "disabled" # sets initial state of optionmenu to disabled
     flavor2_menu["menu"].config(background="white", font=("Helvetica", 16))
     flavor3_menu = ttk.OptionMenu(page, order_info["Flavor 3"], "Choose one:", *flavors)
     flavor3_menu["state"] = "disabled"
     flavor3_menu["menu"].config(background="white", font=("Helvetica", 16))
-    toppings1_menu = ttk.OptionMenu(page, order_info["Topping 1"], "Choose one:", *toppings)
+    toppings1_menu = ttk.OptionMenu(page, order_info["Topping 1"], "None", *toppings)
     toppings1_menu["menu"].config(background="white", font=("Helvetica", 16))
-    toppings2_menu = ttk.OptionMenu(page, order_info["Topping 2"], "Choose one:", *toppings)
+    toppings2_menu = ttk.OptionMenu(page, order_info["Topping 2"], "None", *toppings)
     toppings2_menu["state"] = "disabled"
     toppings2_menu["menu"].config(background="white",font=("Helvetica", 16))
-    toppings3_menu = ttk.OptionMenu(page, order_info["Topping 3"], "Choose one:", *toppings)
+    toppings3_menu = ttk.OptionMenu(page, order_info["Topping 3"], "None", *toppings)
     toppings3_menu["state"] = "disabled"
     toppings3_menu["menu"].config(background="white", font=("Helvetica", 16))
 
-    # Checkbuttons for second and third flavor/topping optionmenus
+    # Checkbuttons for flavor/topping optionmenus
+    flavor1_check = ttk.Label(page, text=u'\u2714')  # Pseudo checkbox, can't be unchecked (since flavor 1 must have a value)
     flavor2_var = tk.BooleanVar()
     flavor2_check = ttk.Checkbutton(page, style="mini.TCheckbutton", variable=flavor2_var, command=lambda: toggle(flavor2_var, flavor2_menu, toppings2_menu))
     flavor3_var = tk.BooleanVar()
@@ -260,20 +262,21 @@ def init_sundae(page):
     toppings_label.grid(row=2, column=3, sticky="e")
 
     # Row 4
+    flavor1_check.grid(row=3, column=0, sticky="e")
     flavor1_menu.grid(row=3, column=1, sticky="w")
-    ttk.Label(page, text="--- with ---    ").grid(row=3, column=2)
+    ttk.Label(page, text="--- with ---     ").grid(row=3, column=2)
     toppings1_menu.grid(row=3, column=3)
 
     # Row 5
     flavor2_check.grid(row=4, column=0, sticky="e")
     flavor2_menu.grid(row=4, column=1, sticky="w")
-    ttk.Label(page, text="--- with ---    ").grid(row=4, column=2)
+    ttk.Label(page, text="--- with ---     ").grid(row=4, column=2)
     toppings2_menu.grid(row=4, column=3)
 
     # Row 6
     flavor3_check.grid(row=5, column=0, sticky="e")
     flavor3_menu.grid(row=5, column=1, sticky="w")
-    ttk.Label(page, text="--- with ---    ").grid(row=5, column=2)
+    ttk.Label(page, text="--- with ---     ").grid(row=5, column=2)
     toppings3_menu.grid(row=5, column=3)
 
     # Row 7
@@ -298,7 +301,7 @@ def init_milkshake(page):
 
     # Text variables
     banner = f"Let's make {order_info['Name'].get()}'s milkshake!"
-    msg = "First, select a size and flavor. Then add on any number of extras that you want. Hit 'Submit Order' when you're ready to order."
+    msg = "Select the size you'd like from the left column and select your flavor from the right. Don't forget to add on any extras you want! Click \"Submit Order\" when you're done."
 
     # Labels
     banner_label = ttk.Label(page, style="banner.TLabel", text=banner)
@@ -310,11 +313,13 @@ def init_milkshake(page):
     # Size radiobuttons
     small_radiob = ttk.Radiobutton(page, text="Small", value="Small", variable=order_info["Size"])
     large_radiob = ttk.Radiobutton(page, text="Large", value="Large", variable=order_info["Size"])
+    order_info["Size"].set("Small")  # sets default size value to small
 
     # Flavor radiobuttons
     flavor1_radiob = ttk.Radiobutton(page, text="Chocolate", value="Chocolate", variable=order_info["Flavor 1"])
     flavor2_radiob = ttk.Radiobutton(page, text="Vanilla", value="Vanilla", variable=order_info["Flavor 1"])
     flavor3_radiob = ttk.Radiobutton(page,text="Strawberry",value="Strawberry",variable=order_info["Flavor 1"])
+    order_info["Flavor 1"].set(flavors[0])  # sets default flavor selection to the first option
 
     # Extras checkbuttons
     nuts_check = ttk.Checkbutton(page, text="Nuts", variable=order_info["Nuts"])
@@ -370,13 +375,14 @@ def init_thanks(page):
 
     # Text variables
     banner = f"Thank you {order_info['Name'].get()}! Your {order_info['Dessert'].get().lower()} will be ready soon."
-    msg = "All you need to do now is wait! We will bring your dessert to you as soon as it's done. Return to the 'Home Page' to order something else."
+    msg = "All you need to do now is wait! We will bring your dessert to you as soon as it's done. Return to the \"Home Page\" to order something else."
 
     # Labels
     banner_label = ttk.Label(page, style="banner.TLabel", text=banner)
     msg_label = ttk.Label(page, text=msg)
-    thanks_img = tk.PhotoImage(file="thanks_kitty.png")
-    thanks_kitty = ttk.Label(page, image=thanks_img, text="[Image of a cartoon kitten holding a thank you sign]")
+    thanks_label = ttk.Label(page, text="[Image of a cartoon kitten holding up a thank you sign]")
+    thanks_label.image = tk.PhotoImage(file="thanks_kitty.png")  # have to make image an attributge of thanks_label, otherwise gets garbage collected (because inside a function)
+    thanks_label.configure(image=thanks_label.image)  # tells label to call thanks_kitty as its image
 
     # Button to return to home page
     home_button = ttk.Button(page, text="Home Page", style="button.TLabel", command=lambda: init_home(home))
@@ -386,11 +392,15 @@ def init_thanks(page):
 
     banner_label.grid(row=0, column=0)
     msg_label.grid(row=1, column=0)
-    thanks_kitty.grid(row=2, column=0, pady=[0, 30])
+    thanks_label.grid(row=2, column=0, pady=[0,30])
     home_button.grid(row=3, column=0)
 
     # RAISE PAGE
     page.tkraise()
+
+
+    # Must raise frame BEFORE resetting dictionary!
+
 
     # RESET ORDER INFO DICTIONARY
     order_info.update(new_order())
@@ -414,7 +424,7 @@ logo_frame.grid_anchor("n")  # sets grid default placement to top, center
 # objects for logo frame
 logo_img = tk.PhotoImage(file="ike_logo.png")
 logo_label = ttk.Label(logo_frame, image=logo_img, text="\n[Ike's banner logo]    \n", style="banner.TLabel")
-exit_button = ttk.Button(logo_frame,padding=5, text="Close", style="exit.TLabel", command=scoops.destroy)
+exit_button = ttk.Button(logo_frame, padding=5, text="Close", style="exit.TLabel", command=scoops.destroy)
 
 # layout logo frame objects in logo frame
 exit_button.grid(row=0, column=0, sticky="ne")
@@ -443,13 +453,16 @@ main_frame.grid(row=1, column=0, sticky="nsew")
 
 
 # INITIALIZATIONS
-order_info = new_order()  # dictionary to hold order information
 flavors = ["Chocolate", "Vanilla", "Strawberry"]  # list of ice cream flavors (both sundaes and milkshakes)
-toppings = ["Chocolate Syrup", "Vanilla Syrup", "Caramel Syrup", "Strawberry Syrup", "Blueberry Syrup", "Raspberry Syrup"]  # list of toppings (sundaes only)
+toppings = ["None", "Chocolate Syrup", "Vanilla Syrup", "Caramel Syrup", "Strawberry Syrup", "Blueberry Syrup", "Raspberry Syrup"]  # list of toppings (sundaes only)
+table_number = 1
+
+
+# set up dictionary and style
+order_info = new_order()  # dictionary to hold order information
 configure_styles(scoops)  # initializes default settings for application objects
 
 
 # RUN APPLICATION
-
 init_home(home)  # Raises home page to display first
 scoops.mainloop()  # Runs tkinter mainloop
