@@ -30,7 +30,12 @@ def new_order():
 
 
 def lets_go():
-    #Checks value of 'Dessert' key and initates corresponding page. Doesn't run if no option is selected"""
+    """Checks value of 'Dessert' key and initates corresponding page. Doesn't run if no option is selected"""
+
+    # shortens name input if over 25 characters to first 25 characters
+    name = order_info["Name"].get()
+    if len(name) > 25:
+        order_info["Name"].set(name[:25])
 
     dessert = order_info["Dessert"].get()
     if dessert == "Sundae":
@@ -43,7 +48,6 @@ def toggle(check, flavor_menu, topping_menu):
     """Activates and deavtivates menus, depending on if the corresponding checkbotton is checked."""
 
     checked = check.get()
-
     if not checked:
         flavor_menu["state"] = "disabled"
         topping_menu["state"] = "disabled"
@@ -52,20 +56,40 @@ def toggle(check, flavor_menu, topping_menu):
         topping_menu["state"] = "normal"
 
 
-def submit_order():
-    """Prints dictionary of order information, then initiates thank you page. Only runs when user has made at least 1 flavor selection"""
+def validate(check2=None, check3=None):
+    """Prints dictionary of order information, then initiates thank you page. Only runs when all validation logic passes"""
+
+    #if flavor 2 or 3 menu is deselected, sets flavor and toppings values to defaults/none
+    if check2 is not None:
+        if not check2.get():
+            order_info["Flavor 2"].set("Choose one:")
+            order_info["Topping 2"].set(None)
+
+    if check3 is not None:
+        if not check3.get():
+            order_info["Flavor 3"].set("Choose one:")
+            order_info["Topping 3"].set(None)
 
     if order_info["Flavor 1"].get() in flavors:  # Checks if flavor 1 is a valid flavor option
-        for k, v in order_info.items():
-            v = v.get()
-            if v == "Choose one:":  # Sets value to None if user did not make a selection
-                v = None
-            print(f"{k}: {v}")
+        if (check2.get() and order_info["Flavor 2"].get() in flavors) or not check2.get():  # Checks flavor 2 is either checked AND valid, or unchecked
+            if (check3.get() and order_info["Flavor 3"].get() in flavors) or not check3.get():  # Checks flavor 3 is either checked AND valid, or unchecked
 
-        init_thanks(thanks)
+                init_thanks(thanks)  # raises thank you page
 
     else:
-        return  # Returns None if flavor 1 is not valid (to user, nothing happens)
+        return  # Returns None if any validation fails (to user, nothing happens)
+
+
+def submit():
+    """Prints dictionary of order information, then initiates home page."""
+
+    for k, v in order_info.items():
+        v = v.get()
+        if v == "Choose one:": # sets value to None if user did not make a selection
+            v = None
+        print(f"{k}: {v}")
+
+    init_home(home)
 
 
 def configure_styles(scoops):
@@ -75,6 +99,8 @@ def configure_styles(scoops):
 
     # Sets background for all frames
     style.configure("TFrame", background="#fff391")
+    # Sets frame background to light yellow when called
+    style.configure("confirmation.TFrame", background="light yellow")
 
     # Default settings for all labels
     style.configure(
@@ -93,6 +119,9 @@ def configure_styles(scoops):
         font=("Ink Free", 32),
         padding=0,
         wraplength="")
+
+    # Sets label background to light yellow when called
+    style.configure("confirmation.TLabel", background="light yellow")
 
     # Default settings for buttons (must be called directly)
     style.configure(
@@ -149,6 +178,11 @@ def configure_styles(scoops):
 # PAGE INITIALIZATION FUNCTIONS
 def init_home(page):
     """Initiates home page and raises it."""
+
+    # Clears frame and resets order dictionary
+    for widget in page.winfo_children():
+        widget.destroy()
+    order_info.update(new_order())
 
     # CREATE HOME PAGE OBJECTS
 
@@ -234,7 +268,7 @@ def init_sundae(page):
     toppings3_menu["menu"].config(background="white", font=("Helvetica", 16))
 
     # Checkbuttons for flavor/topping optionmenus
-    flavor1_check = ttk.Label(page, text=u'\u2714')  # Pseudo checkbox, can't be unchecked (since flavor 1 must have a value)
+    flavor1_check = ttk.Label(page, text=u'\u2611', padding=0)  # Pseudo checkbox, can't be unchecked (since flavor 1 must have a value)
     flavor2_var = tk.BooleanVar()
     flavor2_check = ttk.Checkbutton(page, style="mini.TCheckbutton", variable=flavor2_var, command=lambda: toggle(flavor2_var, flavor2_menu, toppings2_menu))
     flavor3_var = tk.BooleanVar()
@@ -245,8 +279,8 @@ def init_sundae(page):
     whip_check = ttk.Checkbutton(page, text="Whipping Cream", variable=order_info["Whip"])
     cherry_check = ttk.Checkbutton(page, text="Cherry on Top", variable=order_info["Cherry"])
 
-    # Button to submit order
-    order_button = ttk.Button(page, text="Submit Order", style="button.TLabel", command=submit_order, width=15)
+    # Button to validate order information. If validations pass, validate function will raise next page
+    order_button = ttk.Button(page, text="Submit Order", style="button.TLabel", command=lambda : validate(flavor2_var, flavor3_var) , width=15)
 
 
     # LAYOUT PAGE OBJECTS
@@ -326,8 +360,8 @@ def init_milkshake(page):
     whip_check = ttk.Checkbutton(page, text="Whipping Cream", variable=order_info["Whip"])
     cherry_check = ttk.Checkbutton(page, text="Cherry on Top", variable=order_info["Cherry"])
 
-    # Button to submit order
-    order_button = ttk.Button(page, text="Submit Order", style="button.TLabel", command=submit_order, width=15)
+    # Button to go to thanks page. Skips validation function since all values have defaults or can be left blank
+    order_button = ttk.Button(page, text="Submit Order", style="button.TLabel", command=lambda: init_thanks(thanks), width=15)
 
 
     # LAYOUT PAGE OBJECTS
@@ -371,39 +405,86 @@ def init_milkshake(page):
 def init_thanks(page):
     """Initiates and raises thank you page, then resets order info dictionary"""
 
+    # Clears frame of all existing widgets
+    for widget in page.winfo_children():
+        widget.destroy()
+
     # CREATE APPLICATION OBJECTS
 
     # Text variables
     banner = f"Thank you {order_info['Name'].get()}! Your {order_info['Dessert'].get().lower()} will be ready soon."
-    msg = "All you need to do now is wait! We will bring your dessert to you as soon as it's done. Return to the \"Home Page\" to order something else."
+    msg = "Please check the list below to make sure we've got everything right. If there's a mistake, click \"Return Home\" to start again. If it looks good, click \"Submit Order\" and we will bring your dessert to you as soon as it's done.\n Clicking either button will return you to the home page."
 
     # Labels
     banner_label = ttk.Label(page, style="banner.TLabel", text=banner)
     msg_label = ttk.Label(page, text=msg)
-    thanks_label = ttk.Label(page, text="[Image of a cartoon kitten holding up a thank you sign]")
-    thanks_label.image = tk.PhotoImage(file="thanks_kitty.png")  # have to make image an attributge of thanks_label, otherwise gets garbage collected (because inside a function)
-    thanks_label.configure(image=thanks_label.image)  # tells label to call thanks_kitty as its image
+    thanks_kitty_label = ttk.Label(page, text="[Image of a cartoon kitten holding up a thank you sign]")
+    thanks_kitty_label.image = tk.PhotoImage(file="thanks_kitty.png")  # have to make image an attributge of thanks_label, otherwise gets garbage collected (because inside a function)
+    thanks_kitty_label.configure(image=thanks_kitty_label.image)  # tells label to call thanks_kitty as its image
+    go_home_label = ttk.Label(page, text="Your order will not be submitted.", font=12)
 
-    # Button to return to home page
-    home_button = ttk.Button(page, text="Home Page", style="button.TLabel", command=lambda: init_home(home))
+    # Order Confirmation Frame
+    order_conf = ttk.Frame(page, style="confirmation.TFrame")
+
+    t_f = {True : "Yes", False: "No"}  # dictionary to change True/False values to "Yes"/"No"
+
+    # Row 1
+    name = ttk.Label(order_conf, text=f"Name: {order_info['Name'].get()}", style="confirmation.TLabel").grid(row=0, column=0, sticky="w")
+    dessert = ttk.Label(order_conf, text=f"Dessert: {order_info['Dessert'].get()}", style="confirmation.TLabel").grid(row=0, column=1, sticky="w")
+
+    # Displays if dessert is a sundae
+    if order_info["Dessert"].get() == "Sundae":
+        # Row 2
+        flavor1 = ttk.Label(order_conf, text=f"Flavor 1: {order_info['Flavor 1'].get()}", style="confirmation.TLabel").grid(row=1, column=0, sticky="w")
+        topping1 = ttk.Label(order_conf, text=f"Topping 1: {order_info['Topping 1'].get()}", style="confirmation.TLabel").grid(row=1, column=1, sticky="w")
+        # Row 3. Only one if/elif statement will run, depends on if flavor 2 is unchecked
+        if order_info["Flavor 2"].get() == "Choose one:":
+            flavor2 = ttk.Label(order_conf, text=f"Flavor 2: ---", style="confirmation.TLabel").grid(row=2, column=0, sticky="w")
+            topping2 = ttk.Label(order_conf, text=f"Topping 2: ---", style="confirmation.TLabel").grid(row=2, column=1, sticky="w")
+        elif order_info["Flavor 2"].get() != "Choose one:":
+            flavor2 = ttk.Label(order_conf, text=f"Flavor 2: {order_info['Flavor 2'].get()}", style="confirmation.TLabel").grid(row=2, column=0, sticky="w")
+            topping2 = ttk.Label(order_conf, text=f"Topping 2: {order_info['Topping 2'].get()}", style="confirmation.TLabel").grid(row=2, column=1, sticky="w")
+        # Row 4. Only one if/elif statement will run, depends on if flavor 3 is unchecked
+        if order_info["Flavor 3"].get() == "Choose one:":
+            flavor3 = ttk.Label(order_conf, text=f"Flavor 3: ---", style="confirmation.TLabel").grid(row=3, column=0, sticky="w")
+            topping1 = ttk.Label(order_conf, text=f"Topping 3: ---", style="confirmation.TLabel").grid(row=3, column=1, sticky="w")
+        elif order_info["Flavor 3"].get() != "Choose one:":
+            flavor3 = ttk.Label(order_conf, text=f"Flavor 3: {order_info['Flavor 3'].get()}", style="confirmation.TLabel").grid(row=3, column=0, sticky="w")
+            topping3 = ttk.Label(order_conf, text=f"Topping 3: {order_info['Topping 3'].get()}", style="confirmation.TLabel").grid(row=3, column=1, sticky="w")
+        # Row 5
+        nuts = ttk.Label(order_conf, text=f"Nuts: {t_f[order_info['Nuts'].get()]}", style="confirmation.TLabel").grid(row=4, column=0, sticky="w")
+        # Row 6
+        whip = ttk.Label(order_conf, text=f"Whipping Cream: {t_f[order_info['Whip'].get()]}", style="confirmation.TLabel").grid(row=4, column=1, sticky="w")
+        # Row 7
+        cherry = ttk.Label(order_conf, text=f"Cherry on Top: {t_f[order_info['Cherry'].get()]}", style="confirmation.TLabel").grid(row=5, column=0, sticky="w")
+
+    # Displays if dessert was a milkshake.
+    # Rows 2-6
+    elif order_info["Dessert"].get() == "Milkshake":
+        size = ttk.Label(order_conf, text=f"Size: {order_info['Size'].get()}", style="confirmation.TLabel").grid(row=1, column=0, columnspan=2, sticky="w")
+        flavor = ttk.Label(order_conf, text=f"Flavor: {order_info['Flavor 1'].get()}", style="confirmation.TLabel").grid(row=2, column=0, columnspan=2, sticky="w")
+        nuts = ttk.Label(order_conf, text=f"Nuts: {t_f[order_info['Nuts'].get()]}", style="confirmation.TLabel").grid(row=3, column=0, sticky="w")
+        whip = ttk.Label(order_conf, text=f"Whipping Cream: {t_f[order_info['Whip'].get()]}", style="confirmation.TLabel").grid(row=4, column=0, sticky="w")
+        cherry = ttk.Label(order_conf, text=f"Cherry on Top: {t_f[order_info['Cherry'].get()]}", style="confirmation.TLabel").grid(row=5, column=0, sticky="w")
+
+    # Buttons
+    home_button = ttk.Button(page, text="Return Home", style="button.TLabel", width=12, command=lambda: init_home(home))  # return to homepage without submitting order
+    submit_button = ttk.Button(page, text="Submit Order", style="button.TLabel", width=20, command=submit)  # submit order, then return to homepage
 
 
-    # LAYOUT PAGE OBJECTS (four rows)
+    # LAYOUT PAGE OBJECTS (five rows)
 
-    banner_label.grid(row=0, column=0)
-    msg_label.grid(row=1, column=0)
-    thanks_label.grid(row=2, column=0, pady=[0,30])
-    home_button.grid(row=3, column=0)
+    banner_label.grid(row=0, column=0, columnspan=2)
+    msg_label.grid(row=1, column=0, columnspan=2)
+    order_conf.grid(row=2, column=0)
+    thanks_kitty_label.grid(row=2, column=1, pady=[0,30])
+    home_button.grid(row=3, column=1)
+    submit_button.grid(row=3, column=0)
+    go_home_label.grid(row=4, column=1)
 
     # RAISE PAGE
     page.tkraise()
 
-
-    # Must raise frame BEFORE resetting dictionary!
-
-
-    # RESET ORDER INFO DICTIONARY
-    order_info.update(new_order())
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------
 # SET UP OF ROOT APPLICATION AND BASE FRAMES
