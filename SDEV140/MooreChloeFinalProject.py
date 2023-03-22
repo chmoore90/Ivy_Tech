@@ -57,7 +57,7 @@ def toggle(check, flavor_menu, topping_menu):
 
 
 def validate(check2=None, check3=None):
-    """Prints dictionary of order information, then initiates thank you page. Only runs when all validation logic passes"""
+    """Initiates thank you page. Only runs when all validation logic passes"""
 
     #if flavor 2 or 3 menu is deselected, sets flavor and toppings values to defaults/none
     if check2 is not None:
@@ -280,7 +280,7 @@ def init_sundae(page):
     cherry_check = ttk.Checkbutton(page, text="Cherry on Top", variable=order_info["Cherry"])
 
     # Button to validate order information. If validations pass, validate function will raise next page
-    order_button = ttk.Button(page, text="Submit Order", style="button.TLabel", command=lambda : validate(flavor2_var, flavor3_var) , width=15)
+    order_button = ttk.Button(page, text="Submit Order", style="button.TLabel", command=lambda : validate(flavor2_var, flavor3_var), width=15)
 
 
     # LAYOUT PAGE OBJECTS
@@ -403,13 +403,12 @@ def init_milkshake(page):
 
 
 def init_thanks(page):
-    """Initiates and raises thank you page, then resets order info dictionary"""
+    """Initiates and raises thank you page"""
 
     # Clears frame of all existing widgets
     for widget in page.winfo_children():
         widget.destroy()
 
-    # CREATE APPLICATION OBJECTS
 
     # Text variables
     banner = f"Thank you {order_info['Name'].get()}! Your {order_info['Dessert'].get().lower()} will be ready soon."
@@ -458,7 +457,7 @@ def init_thanks(page):
         # Row 7
         cherry = ttk.Label(order_conf, text=f"Cherry on Top: {t_f[order_info['Cherry'].get()]}", style="confirmation.TLabel").grid(row=5, column=0, sticky="w")
 
-    # Displays if dessert was a milkshake.
+    # Displays if dessert is a milkshake.
     # Rows 2-6
     elif order_info["Dessert"].get() == "Milkshake":
         size = ttk.Label(order_conf, text=f"Size: {order_info['Size'].get()}", style="confirmation.TLabel").grid(row=1, column=0, columnspan=2, sticky="w")
