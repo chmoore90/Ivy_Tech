@@ -12,10 +12,12 @@ with open(in_file, "r", encoding="utf-8") as f:
 
     for line in f:
         row = line.strip().split(",")
-        year = row[y_column-1][-4:]
+        year = int(row[y_column-1][-4:])
 
         if year in totals:
             totals[year] += 1
+        elif year == 1993:
+            continue
         else:
             totals[year] = 1
 
