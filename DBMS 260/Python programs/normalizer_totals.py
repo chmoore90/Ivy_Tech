@@ -1,5 +1,5 @@
 from gen_totals_and_rates import totals
-out_filename = "ter-totals(norm).csv"
+out_filename = "fed-totals(norm).csv"
 
 normalized = {}
 sorted = sorted(totals)

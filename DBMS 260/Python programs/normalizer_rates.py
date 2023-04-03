@@ -1,6 +1,6 @@
-normalized_totals_file = "ter-totals(norm).csv"
-rates_file = "ter-rates.csv"
-out_filename = "ter-rates(norm).csv"
+normalized_totals_file = "fed-totals(norm).csv"
+rates_file = "fed-rates.csv"
+out_filename = "fed-rates(norm).csv"
 
 normalized_totals = {}
 rates = {}

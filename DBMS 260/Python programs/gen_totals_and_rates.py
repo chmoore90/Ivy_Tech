@@ -1,6 +1,6 @@
-in_file = "terrorism clean output.csv"
-out_file_tot = "ter-totals.csv"
-out_file_rat = "ter-rates.csv"
+in_file = "fed_emerg - cleaned.csv"
+out_file_tot = "fed-totals.csv"
+out_file_rat = "fed-rates.csv"
 y_column = 2
 
 totals = {}
