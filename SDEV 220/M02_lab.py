@@ -1,7 +1,7 @@
 
 # Chloe Moore
 # M02_lab
-# Checks if student input means student qualifies for academic achievements
+# Checks if student input meets qualifications for academic achievements
 
 # initial last_name value so while loop will start
 last_name = ''
