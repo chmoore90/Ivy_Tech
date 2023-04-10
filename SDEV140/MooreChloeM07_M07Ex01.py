@@ -28,6 +28,9 @@ class Customer(Person):
 # initialize x
 x = Person("Greg", "somewhere in Canada", None)
 
+# print x stuff
+
+
 # initialize y, with values from x
 y = Customer(x.name, x.address, x.phone, number=1, mail_sub=False)
 
