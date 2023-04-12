@@ -1,6 +1,6 @@
 """
 Chloe Moore
-M03_lab
+M03 Lab - Case Study: Lists, Functions, and Classes
 Asks user for information about a car, creates an object with that info and prints it for user.
 """
 
